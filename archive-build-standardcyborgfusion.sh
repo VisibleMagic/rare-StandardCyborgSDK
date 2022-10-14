@@ -3,7 +3,7 @@
 # Exit on first error, unset variable, or pipe failure
 set -euo pipefail
 
-if [ ! -d "../StandardCyborgCocoa" ]; then echo "Need a checkout of StandardCyborgCocoa"; exit 1; fi
+if [ ! -d "../rare-StandardCyborgCocoa" ]; then echo "Need a checkout of StandardCyborgCocoa"; exit 1; fi
 
 # Read and update the framework version
 current_version_string=`plutil -p StandardCyborgFusion/Info.plist | grep CFBundleShortVersionString`
@@ -17,7 +17,7 @@ fi
 
 echo "Updating version number to $new_version"
 plutil -replace CFBundleShortVersionString -string "$new_version" StandardCyborgFusion/Info.plist
-sed -i '' -E "s/  s.version(.+) = '([0-9\.]+)'/  s.version\1 = '$new_version'/g" "../StandardCyborgCocoa/StandardCyborgFusion/StandardCyborgFusion.podspec"
+sed -i '' -E "s/  s.version(.+) = '([0-9\.]+)'/  s.version\1 = '$new_version'/g" "../rare-StandardCyborgCocoa/StandardCyborgFusion/StandardCyborgFusion.podspec"
 
 
 # Now we build StandardCyborgFusion for OSX, iOS, and the simulator.  Notes:
@@ -94,18 +94,18 @@ pushd "build" &>/dev/null
     -framework "$osx_root/StandardCyborgFusion.framework" \
     -output "StandardCyborgFusion.xcframework"
 
-  # Copy files into StandardCyborgCocoa
-  echo "Updating StandardCyborgCocoa"
-  mkdir -p "../../StandardCyborgCocoa/StandardCyborgFusion/ios/"
-  mkdir -p "../../StandardCyborgCocoa/StandardCyborgFusion/osx/"
+  # Copy files into rare-StandardCyborgCocoa
+  echo "Updating rare-StandardCyborgCocoa"
+  mkdir -p "../../rare-StandardCyborgCocoa/StandardCyborgFusion/ios/"
+  mkdir -p "../../rare-StandardCyborgCocoa/StandardCyborgFusion/osx/"
 
-  rm -rf "../../StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
-  rm -rf "../../StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
-  cp -r "ios/StandardCyborgFusion.framework" "../../StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
-  cp -R "osx/StandardCyborgFusion.framework" "../../StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
+  rm -rf "../../rare-StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
+  rm -rf "../../rare-StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
+  cp -r "ios/StandardCyborgFusion.framework" "../../rare-StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
+  cp -R "osx/StandardCyborgFusion.framework" "../../rare-StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
 
   echo "Creating zipped version for upload to GitHub release..."
-  cp "../../StandardCyborgCocoa/StandardCyborgFusion/LICENSE" .
+  cp "../../rare-StandardCyborgCocoa/StandardCyborgFusion/LICENSE" .
 
   tar -czf "StandardCyborgFusion.xcframework.tar.gz" "StandardCyborgFusion.xcframework" "LICENSE"
 popd &>/dev/null
