@@ -16,4 +16,7 @@
 /** The maximum depth, in meters, above which incoming depth buffer values are clipped before reconstruction. Default value is FLT_MAX. */
 @property (nonatomic) float maxDepth;
 
+@property (nonatomic) int minCount;
+@property (nonatomic) int surfelLifetime;
+
 @end

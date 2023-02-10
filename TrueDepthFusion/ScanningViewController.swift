@@ -93,7 +93,11 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
         _cameraManager.configureCaptureSession(maxColorResolution: 1920, maxDepthResolution: _useFullResolutionDepthFrames ? 640 : 320, maxFramerate: 30)
         _reconstructionManager.delegate = self
         _reconstructionManager.includesColorBuffersInMetadata = true
-        
+        _reconstructionManager.setMaxDepth(0.5)
+        _reconstructionManager.setMinCount(25)
+        _reconstructionManager.setSurfelLifetime(15)
+        _reconstructionManager.normalizedFrameClipRegion = CGRect(x: 0.6, y: 0.0, width: 0.4, height: 1.0)
+
         _algorithmCommandQueue.label = "ScanningViewController._algorithmCommandQueue"
         _visualizationCommandQueue.label = "ScanningViewController._visualizationCommandQueue"
         

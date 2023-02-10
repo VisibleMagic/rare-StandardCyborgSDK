@@ -246,6 +246,27 @@ NS_ASSUME_NONNULL_BEGIN
     _surfelFusionConfig.maxDepth = maxDepth;
     _userSetMaxDepth = YES;
 }
+
+- (int)minCount
+{
+    return _surfelFusionConfig.minCount;
+}
+
+- (void)setMinCount:(int)minCount
+{
+    _surfelFusionConfig.minCount = minCount;
+}
+
+- (int)surfelLifetime
+{
+    return _surfelFusionConfig.surfelLifetime;
+}
+
+- (void)setSurfelLifetime:(int)surfelLifetime
+{
+    _surfelFusionConfig.surfelLifetime = surfelLifetime;
+}
+
 - (void)clearMaxDepth
 {
     _userSetMaxDepth = NO;
@@ -537,10 +558,10 @@ static const float kCenterDepthExpansionRatio = 1.4;
         });
         
         dispatch_async(dispatch_get_main_queue(), ^{
-#ifndef XCODE_ACTION_install // Avoid logging in archive builds
-            printf("STATS: succeeded: %zd, lost tracking: %zd, consecutive lost tracking: %zd\n",
-                   statistics.succeededCount, statistics.lostTrackingCount, statistics.consecutiveLostTrackingCount);
-#endif
+//#ifndef XCODE_ACTION_install // Avoid logging in archive builds
+//            printf("STATS: succeeded: %zd, lost tracking: %zd, consecutive lost tracking: %zd\n",
+//                   statistics.succeededCount, statistics.lostTrackingCount, statistics.consecutiveLostTrackingCount);
+//#endif
             
             [_delegate reconstructionManager:self didProcessWithMetadata:metadata statistics:statistics];
             
@@ -575,12 +596,12 @@ static const float kCenterDepthExpansionRatio = 1.4;
     
     auto metadata = _modelQueue_model->assimilate(*_modelQueue_frame, _pbfConfig, _icpConfig, _surfelFusionConfig, startTime);
     
-#ifndef XCODE_ACTION_install // Avoid logging in archive builds
-    float quality = metadata.icpUnusedIterationFraction;
-    
-    CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
-    printf("Assimilated frame %d in %.2f ms with quality %f\n", data.sequence, 1000.0 * (endTime - startTime), quality);
-#endif
+//#ifndef XCODE_ACTION_install // Avoid logging in archive builds
+//    float quality = metadata.icpUnusedIterationFraction;
+//    
+//    CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
+//    printf("Assimilated frame %d in %.2f ms with quality %f\n", data.sequence, 1000.0 * (endTime - startTime), quality);
+//#endif
     
     return metadata;
 }

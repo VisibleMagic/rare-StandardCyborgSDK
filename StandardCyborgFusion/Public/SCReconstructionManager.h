@@ -97,6 +97,9 @@ NS_SWIFT_NAME(accumulate(depthBuffer:colorBuffer:calibrationData:));
 /** Sets a manual clipping distance in meters. */
 - (void)setMaxDepth:(float)maxDepth;
 
+- (void)setMinCount:(int)minCount;
+- (void)setSurfelLifetime:(int)surfelLifetime;
+
 /** Resets manual clipping distance back to center-weighted strategy */
 - (void)clearMaxDepth;
 

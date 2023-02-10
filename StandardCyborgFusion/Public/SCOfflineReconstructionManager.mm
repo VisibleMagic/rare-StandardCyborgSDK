@@ -121,6 +121,26 @@ using namespace standard_cyborg;
     _surfelFusionConfig.maxDepth = maxDepth;
 }
 
+- (int)minCount
+{
+    return _surfelFusionConfig.minCount;
+}
+
+- (void)setMinCount:(int)minCount
+{
+    _surfelFusionConfig.minCount = minCount;
+}
+
+- (int)surfelLifetime
+{
+    return _surfelFusionConfig.surfelLifetime;
+}
+
+- (void)setSurfelLifetime:(int)surfelLifetime
+{
+    _surfelFusionConfig.surfelLifetime = surfelLifetime;
+}
+
 // MARK: - Public
 
 - (instancetype)initWithDevice:(id<MTLDevice>)device
