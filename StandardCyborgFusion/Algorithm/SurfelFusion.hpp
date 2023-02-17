@@ -31,7 +31,7 @@ class SurfelFusion {
 public:
     SurfelFusion(std::shared_ptr<SurfelIndexMap> surfelIndexMap);
 
-    bool doFusion(SurfelFusionConfiguration surfelFusionConfiguration, ProcessedFrame& frame, Surfels& surfels, math::Mat4x4 extrinsicMatrix, const std::vector<ScreenSpaceLandmark>* screenSpaceLandmarks, SparseSurfelLandmarksIndex& _surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList);
+    bool doFusion(SurfelFusionConfiguration surfelFusionConfiguration, ProcessedFrame& frame, float *weights, Surfels& surfels, math::Mat4x4 extrinsicMatrix, const std::vector<ScreenSpaceLandmark>* screenSpaceLandmarks, SparseSurfelLandmarksIndex& _surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList);
     
     void finish(SurfelFusionConfiguration surfelFusionConfiguration, Surfels& surfels, SparseSurfelLandmarksIndex& surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList);
 

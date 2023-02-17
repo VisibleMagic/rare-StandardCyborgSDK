@@ -33,6 +33,12 @@ typedef struct {
     NSInteger droppedFrameCount;
 } SCReconstructionManagerStatistics;
 
+typedef struct __attribute__((packed, aligned(16))) {
+    float x;
+    float y;
+    float z;
+} Vec3Proxy;
+
 /**
  Performs 3D reconstruction by assimilating color, depth, and IMU data.
  All calls are threadsafe.
@@ -117,6 +123,10 @@ NS_SWIFT_NAME(accumulate(depthBuffer:colorBuffer:calibrationData:));
 
 - (void)reconstructionManager:(SCReconstructionManager *)manager
          didEncounterAPIError:(NSError *)error;
+
+- (float *)reconstructionManager:(SCReconstructionManager *)manager
+         requestedFilterWeights:(Vec3Proxy *)vertices
+         count: (unsigned long)count;
 
 @end
 

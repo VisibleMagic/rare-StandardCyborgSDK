@@ -88,7 +88,7 @@ void _integrateValuesIntoExistingSurfelAtIndex(size_t surfelIndex, Vector3f inco
     surfel.surfelSize = targetSurfelSize;
 }
 
-bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration, ProcessedFrame& frame, Surfels& surfels, math::Mat4x4 extrinsicMatrix, const std::vector<ScreenSpaceLandmark>* screenSpaceLandmarks, SparseSurfelLandmarksIndex& surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList) {
+bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration, ProcessedFrame& frame, float *weights, Surfels& surfels, math::Mat4x4 extrinsicMatrix, const std::vector<ScreenSpaceLandmark>* screenSpaceLandmarks, SparseSurfelLandmarksIndex& surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList) {
         
     const Eigen::Matrix3f extrinsicNormalMatrix = NormalMatrixFromMat4(toMatrix4f(extrinsicMatrix));
 
@@ -160,6 +160,14 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
     #if DETAILED_PBF_MERGE_STATS
                     inputConfidenceRejections++;
     #endif
+                    continue;
+                }
+                
+                if (weights == NULL) {
+                    continue;
+                }
+                
+                if (weights[index] == 0) {
                     continue;
                 }
 

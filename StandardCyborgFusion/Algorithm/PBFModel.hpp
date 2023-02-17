@@ -38,6 +38,7 @@ public:
 
     /** @return float  A rough measure of the quality of the assimilated frame, from 0-1. 0 == discarded */
     PBFAssimilatedFrameMetadata assimilate(ProcessedFrame& frame,
+                                           float *weights,
                                            PBFConfiguration pbfConfig,
                                            ICPConfiguration icpConfig,
                                            SurfelFusionConfiguration surfelFusionConfiguration,
@@ -72,7 +73,7 @@ private:
 
     void _cullLowConfidence(bool ignoreLifetime, int minWeight, std::vector<int>* deletedSurfelList = NULL);
     
-    ICPResult _runICP(ProcessedFrame& frame, SurfelFusionConfiguration surfelFusionConfiguration, ICPConfiguration icpConfig, PBFConfiguration pbfConfig);
+    ICPResult _runICP(ProcessedFrame& frame, float *weights, SurfelFusionConfiguration surfelFusionConfiguration, ICPConfiguration icpConfig, PBFConfiguration pbfConfig);
 
     
     PBFAssimilatedFrameMetadata* _nthMostRecentValidFrameMetadata(size_t offset = 0);

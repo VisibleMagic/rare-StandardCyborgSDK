@@ -108,6 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
     PBFModel *_modelQueue_model;
     MetalDepthProcessor *_modelQueue_depthProcessor;
     ProcessedFrame *_modelQueue_frame;
+    Vec3Proxy *_positionsProxy;
     float _modelQueue_maxDepth;
     BOOL _userSetMaxDepth;
     BOOL _modelQueue_hasCalculatedModelConfig;
@@ -594,7 +595,20 @@ static const float kCenterDepthExpansionRatio = 1.4;
     
     [self _modelQueue_configureModelForRawFrame];
     
-    auto metadata = _modelQueue_model->assimilate(*_modelQueue_frame, _pbfConfig, _icpConfig, _surfelFusionConfig, startTime);
+    if (_positionsProxy == NULL) {
+        _positionsProxy = (Vec3Proxy *) calloc(_modelQueue_frame->positions.size(), sizeof(*_positionsProxy));
+    }
+    
+    for (size_t i = 0; i < _modelQueue_frame->positions.size(); i++)
+    {
+        _positionsProxy[i].x = _modelQueue_frame->positions[i].x;
+        _positionsProxy[i].y = _modelQueue_frame->positions[i].y;
+        _positionsProxy[i].z = _modelQueue_frame->positions[i].z;
+    }
+        
+    float *weights = [self.delegate reconstructionManager:self requestedFilterWeights:_positionsProxy count:_modelQueue_frame->positions.size()];
+    
+    auto metadata = _modelQueue_model->assimilate(*_modelQueue_frame, weights, _pbfConfig, _icpConfig, _surfelFusionConfig, startTime);
     
 //#ifndef XCODE_ACTION_install // Avoid logging in archive builds
 //    float quality = metadata.icpUnusedIterationFraction;

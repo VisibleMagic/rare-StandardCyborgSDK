@@ -170,6 +170,7 @@ static CameraVelocity _cameraVelocity(PBFAssimilatedFrameMetadata* previousFrame
 }
 
 PBFAssimilatedFrameMetadata PBFModel::assimilate(ProcessedFrame& frame,
+                                                 float *weights,
                                                  PBFConfiguration pbfConfig,
                                                  ICPConfiguration icpConfig,
                                                  SurfelFusionConfiguration surfelFusionConfiguration,
@@ -201,7 +202,7 @@ PBFAssimilatedFrameMetadata PBFModel::assimilate(ProcessedFrame& frame,
     const size_t width = rawFrame.width;
     const size_t height = rawFrame.height;
     if (_surfels.size() > 0) {
-        ICPResult icpResult = _runICP(frame, surfelFusionConfiguration, icpConfig, pbfConfig);
+        ICPResult icpResult = _runICP(frame, weights, surfelFusionConfiguration, icpConfig, pbfConfig);
 
         Matrix4f extrinsicMatrixTmp = toMatrix4f(icpResult.sourceTransform) * _extrinsicMatrix;
         // Store this whether or not we end up using it since we also store information about whether
@@ -244,7 +245,7 @@ PBFAssimilatedFrameMetadata PBFModel::assimilate(ProcessedFrame& frame,
         _surfels.reserve(width * height);
     }
     
-    if(!_surfelFusion.doFusion(surfelFusionConfiguration, frame, _surfels, toMat4x4(_extrinsicMatrix), screenSpaceLandmarks, _surfelLandmarksIndex, _deletedSurfelIndicesList ) ) {
+    if(!_surfelFusion.doFusion(surfelFusionConfiguration, frame, weights, _surfels, toMat4x4(_extrinsicMatrix), screenSpaceLandmarks, _surfelLandmarksIndex, _deletedSurfelIndicesList ) ) {
         DEBUG_LOG("Frame couldn't be fused.");
         frameMeta.icpUnusedIterationFraction = 0;
     } else {
@@ -345,7 +346,7 @@ void PBFModel::reset(unsigned int randomSeed)
 // MARK: - Private
 
 
-ICPResult PBFModel::_runICP(ProcessedFrame& frame, SurfelFusionConfiguration surfelFusionConfiguration, ICPConfiguration icpConfig, PBFConfiguration pbfConfig)
+ICPResult PBFModel::_runICP(ProcessedFrame& frame, float *weights, SurfelFusionConfiguration surfelFusionConfiguration, ICPConfiguration icpConfig, PBFConfiguration pbfConfig)
 {
     bool shouldRebuildPointCloud = false;
     if (_assimilatedFrameMetadatas.size() < pbfConfig.kdTreeRebuildInterval / 2 || _ICPTargetCloud == nullptr) {
@@ -393,6 +394,7 @@ ICPResult PBFModel::_runICP(ProcessedFrame& frame, SurfelFusionConfiguration sur
             
             if (_fastRNG.sample(1000) > frame.weights[i] * 1000.0f) continue;
             if (depth < surfelFusionConfiguration.minDepth || depth > surfelFusionConfiguration.maxDepth) continue;
+            if (weights[i] == 0) continue;
           
             downsampledVertices.push_back(standard_cyborg::toVec3(  Vec3TransformMat4( toVector3f(frame.positions[i]), _extrinsicMatrix)  ) );
             

@@ -363,7 +363,7 @@ using namespace standard_cyborg;
 
     _depthProcessor->computeFrameValues(processedFrame, rawFrame);
     
-    auto pbfMetadata = _pbfModel->assimilate(processedFrame, _pbfConfig, _icpConfig, _surfelFusionConfig, rawFrame.timestamp);
+    auto pbfMetadata = _pbfModel->assimilate(processedFrame, NULL, _pbfConfig, _icpConfig, _surfelFusionConfig, rawFrame.timestamp);
 
     CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
 

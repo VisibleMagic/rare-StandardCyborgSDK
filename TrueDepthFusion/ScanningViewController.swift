@@ -279,6 +279,16 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
         print("Encountered API error: \(error)")
     }
     
+    func reconstructionManager(_ manager: SCReconstructionManager, requestedFilterWeights vertices: UnsafeMutablePointer<Vec3Proxy>, count: UInt) -> UnsafeMutablePointer<Float> {
+        let weightsPointer = UnsafeMutablePointer<Float>.allocate(capacity: Int(count))
+        
+        for i in 0..<count {
+            weightsPointer[Int(i)] = 1
+        }
+        
+        return weightsPointer
+    }
+    
     // MARK: - UI State Management
     
     private lazy var _scanPreviewViewController: ScanPreviewViewController = {
