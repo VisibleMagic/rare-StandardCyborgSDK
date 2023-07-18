@@ -254,6 +254,29 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
             }
         }
 
+    size_t surfelCount = surfels.size();
+    size_t discardedSurfelsCount = 0;
+    
+    Eigen::Matrix4f surfelCameraTransform = toMatrix4f(extrinsicMatrix).inverse();
+
+    for (size_t index = 0; index < surfelCount; ++index) {
+        Surfel& surfel = surfels[index];
+
+        Vector3f surfelCameraPosition = Vec3TransformMat4(surfel.position, surfelCameraTransform);
+        Vector3f surfelCameraNormal = NormalMatrixFromMat4(surfelCameraTransform) * surfel.normal;
+
+        float cosSurfelAngleOfIncidence = -surfelCameraPosition.dot(surfelCameraNormal) / surfelCameraPosition.norm();
+
+        if (surfel.previousCosIncidence < 0.0 && cosSurfelAngleOfIncidence > 0.0) {
+            surfel.lifetime = 0;
+            surfel.weight = 0.0; // if surfel reappeared in sight, it should restart gathering weight to be sure it's not a false surfel
+            discardedSurfelsCount += 1;
+        }
+    
+        surfel.previousCosIncidence = cosSurfelAngleOfIncidence;
+    }
+    
+    printf("Surfels discarded by angle: %zu \n", discardedSurfelsCount);
     
         if (screenSpaceLandmarks != NULL) {
             for (auto screenSpaceLandmark : *screenSpaceLandmarks) {

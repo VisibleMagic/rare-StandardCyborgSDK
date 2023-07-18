@@ -16,7 +16,7 @@
 #include <StandardCyborgFusion/SparseSurfelLandmarksIndex.hpp>
 
 struct SurfelFusionConfiguration {
-    float maxSurfelIncidenceThreshold = (70 * M_PI / 180);
+    float maxSurfelIncidenceThreshold = (90 * M_PI / 180);
     float surfelMergeRadiusScaleFactor = 0.1;
     float inputConfidenceThreshold = 0.9;
     float minDepth = 0;

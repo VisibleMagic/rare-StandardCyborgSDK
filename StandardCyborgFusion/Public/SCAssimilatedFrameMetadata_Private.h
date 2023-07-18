@@ -15,7 +15,7 @@ SCAssimilatedFrameMetadataFromPBFAssimilatedFrameMetadata(PBFAssimilatedFrameMet
                                                           NSInteger consecutiveFailedFrameCount)
 {
     static const float kPoorTrackingQualityThreshold = 0.1;
-    static const NSInteger kMaxConsecutiveFailedFrameCount = 8;
+    static const NSInteger kMaxConsecutiveFailedFrameCount = 30; // default 8
     
     SCAssimilatedFrameMetadata metadata;
     metadata.viewMatrix = toSimdFloat4x4(pbfMetadata.viewMatrix);

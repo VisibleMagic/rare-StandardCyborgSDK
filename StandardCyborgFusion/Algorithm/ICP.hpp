@@ -16,7 +16,7 @@ using namespace standard_cyborg;
 
 struct ICPConfiguration {
     float tolerance = 1e-4; // if the relative correspondence error is below this tolerance value, then the ICP is done.
-    int maxIterations = 18; // maximum number of iterations to run ICP.
+    int maxIterations = 500; // maximum number of iterations to run ICP. Default 18
     float outlierDeviationsThreshold = 1.0; // threshold value, used for filtering out outlier points.
     int threadCount = 1; // number of threads allowed to use, for the correspondence search of ICP. 
 };

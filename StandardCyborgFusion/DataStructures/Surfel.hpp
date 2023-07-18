@@ -41,6 +41,8 @@ struct Surfel {
     // expires and it has low confidence, it's culled
     uint32_t lifetime;
     
+    float previousCosIncidence;
+    
     float surfelSize;
 };
 
