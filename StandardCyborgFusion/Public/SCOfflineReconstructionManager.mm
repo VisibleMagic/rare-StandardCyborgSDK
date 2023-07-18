@@ -136,6 +136,11 @@ using namespace standard_cyborg;
     _surfelFusionConfig.surfelDiscard = isEnabled;
 }
 
+- (void)setSurfelDiscardAngle:(float)angle
+{
+    _surfelFusionConfig.surfelDiscardAngle = angle;
+}
+
 - (int)surfelLifetime
 {
     return _surfelFusionConfig.surfelLifetime;

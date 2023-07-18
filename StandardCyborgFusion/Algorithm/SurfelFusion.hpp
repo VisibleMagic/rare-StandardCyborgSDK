@@ -26,6 +26,7 @@ struct SurfelFusionConfiguration {
     int surfelLifetime = 20;
     bool ignoreLifetime = false;
     bool surfelDiscard = false;
+    float surfelDiscardAngle = (75 * M_PI / 180);
 };
 
 class SurfelFusion {

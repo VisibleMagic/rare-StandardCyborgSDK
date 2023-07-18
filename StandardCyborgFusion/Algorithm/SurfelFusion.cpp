@@ -256,6 +256,7 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
 
     size_t surfelCount = surfels.size();
     size_t discardedSurfelsCount = 0;
+    float cosDiscardAngle = cos(surfelFusionConfiguration.surfelDiscardAngle);
     
     Eigen::Matrix4f surfelCameraTransform = toMatrix4f(extrinsicMatrix).inverse();
 
@@ -267,8 +268,8 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
 
         float cosSurfelAngleOfIncidence = -surfelCameraPosition.dot(surfelCameraNormal) / surfelCameraPosition.norm();
 
-        if (surfel.previousCosIncidence < 0.0 && cosSurfelAngleOfIncidence > 0.0) {
-            surfel.lifetime = 0;
+        if (surfel.previousCosIncidence < cosDiscardAngle && cosSurfelAngleOfIncidence > cosDiscardAngle && surfelFusionConfiguration.surfelDiscard) {
+            surfel.lifetime = surfelFusionConfiguration.surfelLifetime;
             surfel.weight = 0.0; // if surfel reappeared in sight, it should restart gathering weight to be sure it's not a false surfel
             discardedSurfelsCount += 1;
         }
