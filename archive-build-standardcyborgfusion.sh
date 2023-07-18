@@ -30,6 +30,8 @@ sed -i '' -E "s/  s.version(.+) = '([0-9\.]+)'/  s.version\1 = '$new_version'/g"
 #     is basically identical to StandardCyborgFusion, except we need a separate one because of how
 #     cocoapods work (must be either iOS or OSX not both).
 
+rm -rf "build"
+
 echo
 echo
 echo "Building StandardCyborgFusion for macOS"
@@ -101,8 +103,11 @@ pushd "build" &>/dev/null
 
   rm -rf "../../rare-StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
   rm -rf "../../rare-StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
+  rm -rf "../../rare-StandardCyborgCocoa/StandardCyborgFusion/StandardCyborgFusion.xcframework/ios-arm64/StandardCyborgFusion.framework"
+
   cp -r "ios/StandardCyborgFusion.framework" "../../rare-StandardCyborgCocoa/StandardCyborgFusion/ios/StandardCyborgFusion.framework"
   cp -R "osx/StandardCyborgFusion.framework" "../../rare-StandardCyborgCocoa/StandardCyborgFusion/osx/StandardCyborgFusion.framework"
+  cp -r "ios/StandardCyborgFusion.framework" "../../rare-StandardCyborgCocoa/StandardCyborgFusion/StandardCyborgFusion.xcframework/ios-arm64/StandardCyborgFusion.framework"
 
   echo "Creating zipped version for upload to GitHub release..."
   cp "../../rare-StandardCyborgCocoa/StandardCyborgFusion/LICENSE" .
