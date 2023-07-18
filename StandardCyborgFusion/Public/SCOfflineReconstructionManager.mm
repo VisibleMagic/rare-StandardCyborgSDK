@@ -131,6 +131,11 @@ using namespace standard_cyborg;
     _surfelFusionConfig.minCount = minCount;
 }
 
+- (void)setSurfelDiscard:(bool)isEnabled
+{
+    _surfelFusionConfig.surfelDiscard = isEnabled;
+}
+
 - (int)surfelLifetime
 {
     return _surfelFusionConfig.surfelLifetime;

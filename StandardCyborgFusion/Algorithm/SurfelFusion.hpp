@@ -25,6 +25,7 @@ struct SurfelFusionConfiguration {
     int minCount = 6;
     int surfelLifetime = 20;
     bool ignoreLifetime = false;
+    bool surfelDiscard = false;
 };
 
 class SurfelFusion {
