@@ -40,10 +40,10 @@ struct Surfel {
     // A finite lifetime. Every time a surfel is touched, its lifetime is reset. If its lifetime
     // expires and it has low confidence, it's culled
     uint32_t lifetime;
-    
-    float previousCosIncidence;
-    
+        
     float surfelSize;
+    
+    uint32_t iterationsWithoutTouch;
 };
 
 #ifndef __METAL_VERSION__

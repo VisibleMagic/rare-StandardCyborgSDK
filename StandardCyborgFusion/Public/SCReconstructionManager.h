@@ -107,6 +107,7 @@ NS_SWIFT_NAME(accumulate(depthBuffer:colorBuffer:calibrationData:));
 - (void)setSurfelLifetime:(int)surfelLifetime;
 - (void)setSurfelDiscard:(bool)isEnabled;
 - (void)setSurfelDiscardAngle:(float)angle;
+- (void)setSurfelDiscardWaitTime:(int)time;
 
 /** Resets manual clipping distance back to center-weighted strategy */
 - (void)clearMaxDepth;

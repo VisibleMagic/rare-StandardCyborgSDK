@@ -96,6 +96,10 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
         _reconstructionManager.setMaxDepth(0.5)
         _reconstructionManager.setMinCount(25)
         _reconstructionManager.setSurfelLifetime(15)
+        _reconstructionManager.setSurfelDiscard(true)
+        _reconstructionManager.setSurfelLifetime(10)
+        _reconstructionManager.setSurfelDiscardAngle(.pi * (45.0 / 180.0))
+
         _reconstructionManager.normalizedFrameClipRegion = CGRect(x: 0.6, y: 0.0, width: 0.4, height: 1.0)
 
         _algorithmCommandQueue.label = "ScanningViewController._algorithmCommandQueue"

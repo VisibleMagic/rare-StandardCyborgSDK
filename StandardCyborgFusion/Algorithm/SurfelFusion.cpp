@@ -57,6 +57,8 @@ void _addValuesAsNewSurfel(Vector3f position, Vector3f normal, Vector3f color, f
     surfel.color = color;
     surfel.weight = weight;
     surfel.lifetime = surfelLifetime;
+    
+    surfel.iterationsWithoutTouch = 0;
 
     surfels.push_back(surfel);
 }
@@ -86,6 +88,8 @@ void _integrateValuesIntoExistingSurfelAtIndex(size_t surfelIndex, Vector3f inco
     surfel.lifetime = surfelLifetime;
     surfel.weight += weight;
     surfel.surfelSize = targetSurfelSize;
+    
+    surfel.iterationsWithoutTouch = 0;
 }
 
 bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration, ProcessedFrame& frame, float *weights, Surfels& surfels, math::Mat4x4 extrinsicMatrix, const std::vector<ScreenSpaceLandmark>* screenSpaceLandmarks, SparseSurfelLandmarksIndex& surfelLandmarksIndex, std::vector<int>& deletedSurfelIndicesList) {
@@ -139,6 +143,11 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
         float surfelMergeRadiusScaleFactorSquared = surfelFusionConfiguration.surfelMergeRadiusScaleFactor * surfelFusionConfiguration.surfelMergeRadiusScaleFactor;
 
 
+    for (size_t index = 0; index < surfels.size(); ++index) {
+        Surfel& surfel = surfels[index];
+        surfel.iterationsWithoutTouch += 1;
+    }
+    
         for (size_t row = 0; row < height; row++) {
             size_t baseIndex = width * row;
             for (size_t col = 0; col < width; col++) {
@@ -268,13 +277,11 @@ bool SurfelFusion::doFusion(SurfelFusionConfiguration surfelFusionConfiguration,
 
         float cosSurfelAngleOfIncidence = -surfelCameraPosition.dot(surfelCameraNormal) / surfelCameraPosition.norm();
 
-        if (surfel.previousCosIncidence < cosDiscardAngle && cosSurfelAngleOfIncidence > cosDiscardAngle && surfelFusionConfiguration.surfelDiscard) {
+        if (surfel.iterationsWithoutTouch > surfelFusionConfiguration.surfelDiscardWaitTime && cosSurfelAngleOfIncidence > cosDiscardAngle && surfelFusionConfiguration.surfelDiscard) {
             surfel.lifetime = surfelFusionConfiguration.surfelLifetime;
-            surfel.weight = 0.0; // if surfel reappeared in sight, it should restart gathering weight to be sure it's not a false surfel
+            surfel.weight = 0.0; // if surfel is in sight but not detected, it should restart gathering weight to be sure it's not a false surfel
             discardedSurfelsCount += 1;
         }
-    
-        surfel.previousCosIncidence = cosSurfelAngleOfIncidence;
     }
     
     printf("Surfels discarded by angle: %zu \n", discardedSurfelsCount);

@@ -268,6 +268,11 @@ NS_ASSUME_NONNULL_BEGIN
     _surfelFusionConfig.surfelDiscardAngle = angle;
 }
 
+- (void)setSurfelDiscardWaitTime:(int)time
+{
+    _surfelFusionConfig.surfelDiscardWaitTime = time;
+}
+
 - (int)surfelLifetime
 {
     return _surfelFusionConfig.surfelLifetime;
