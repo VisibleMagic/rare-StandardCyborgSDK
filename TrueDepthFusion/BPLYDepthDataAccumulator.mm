@@ -64,7 +64,7 @@ using namespace standard_cyborg;
                     colorTime:(CMTime)colorTime
                   depthBuffer:(CVPixelBufferRef)depthBuffer
                     depthTime:(CMTime)depthTime
-              calibrationData:(AVCameraCalibrationData *)calibrationData
+              calibrationData:(CameraCalibrationData *)calibrationData
 {
     CVPixelBufferLockBaseAddress(colorBuffer, kCVPixelBufferLock_ReadOnly);
     CVPixelBufferLockBaseAddress(depthBuffer, kCVPixelBufferLock_ReadOnly);

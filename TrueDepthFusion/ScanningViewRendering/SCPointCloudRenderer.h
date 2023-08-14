@@ -11,7 +11,7 @@
 #import <Metal/Metal.h>
 #import <simd/simd.h>
 
-@class AVCameraCalibrationData;
+@class CameraCalibrationData;
 @class SCPointCloud;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)encodeCommandsOntoBuffer:(id<MTLCommandBuffer>)commandBuffer
                       pointCloud:(SCPointCloud *)pointCloud
-      depthCameraCalibrationData:(AVCameraCalibrationData *)depthCameraCalibrationData
+      depthCameraCalibrationData:(CameraCalibrationData *)depthCameraCalibrationData
                       viewMatrix:(matrix_float4x4)viewMatrix
                    outputTexture:(id<MTLTexture>)outputTexture
                   depthFrameSize:(CGSize)depthFrameSize

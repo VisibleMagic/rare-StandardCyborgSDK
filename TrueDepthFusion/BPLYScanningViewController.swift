@@ -192,7 +192,7 @@ class BPLYScanningViewController: UIViewController, CameraManagerDelegate {
         _scanningViewRenderer.draw(colorBuffer: colorBuffer,
                                    depthBuffer: depthBuffer,
                                    pointCloud: nil,
-                                   depthCameraCalibrationData: depthCalibrationData,
+                                   depthCameraCalibrationData: depthCalibrationData.proxy(),
                                    viewMatrix: matrix_identity_float4x4,
                                    into: _metalLayer,
                                    flipsInputHorizontally: false)

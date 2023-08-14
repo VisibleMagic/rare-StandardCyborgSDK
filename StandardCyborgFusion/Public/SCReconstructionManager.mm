@@ -33,6 +33,7 @@
 
 #import "GravityEstimator.hpp"
 #import "SCReconstructionManager.h"
+#import "CameraCalibrationData.h"
 
 using namespace standard_cyborg;
 
@@ -42,12 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) int sequence;
 @property (nonatomic, readonly) CVPixelBufferRef depthBuffer;
 @property (nonatomic, readonly) CVPixelBufferRef colorBuffer;
-@property (nonatomic, readonly) AVCameraCalibrationData *calibrationData;
+@property (nonatomic, readonly) CameraCalibrationData *calibrationData;
 
 - (instancetype)initWithSequence:(int)sequence
                      depthBuffer:(CVPixelBufferRef)depthBuffer
                      colorBuffer:(CVPixelBufferRef)colorBuffer
-                 calibrationData:(AVCameraCalibrationData *)calibrationData;
+                 calibrationData:(CameraCalibrationData *)calibrationData;
 
 @end
 
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSequence:(int)sequence
                      depthBuffer:(CVPixelBufferRef)depthBuffer
                      colorBuffer:(CVPixelBufferRef)colorBuffer
-                 calibrationData:(AVCameraCalibrationData *)calibrationData
+                 calibrationData:(CameraCalibrationData *)calibrationData
 {
     self = [super init];
     if (self) {
@@ -323,7 +324,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (SCPointCloud *)reconstructSingleDepthBuffer:(CVPixelBufferRef)depthBuffer
                                    colorBuffer:(_Nullable CVPixelBufferRef)colorBuffer
-                           withCalibrationData:(AVCameraCalibrationData *)calibrationData
+                           withCalibrationData:(CameraCalibrationData *)calibrationData
                                smoothingPoints:(BOOL)smoothPoints
 {
     size_t width = CVPixelBufferGetWidth(depthBuffer);
@@ -399,7 +400,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)accumulateDepthBuffer:(CVPixelBufferRef)depthBuffer
                   colorBuffer:(CVPixelBufferRef)colorBuffer
-              calibrationData:(AVCameraCalibrationData *)calibrationData
+              calibrationData:(CameraCalibrationData *)calibrationData
 {
     if (depthBuffer == NULL || colorBuffer == NULL || calibrationData == nil) { return; }
     CVPixelBufferRetain(depthBuffer);

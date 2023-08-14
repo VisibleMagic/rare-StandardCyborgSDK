@@ -12,7 +12,7 @@
 
 #import <StandardCyborgFusion/PBFFinalStatistics.h>
 
-@class AVCameraCalibrationData;
+@class CameraCalibrationData;
 @class CMDeviceMotion;
 @class SCPointCloud;
 @protocol MTLCommandQueue;

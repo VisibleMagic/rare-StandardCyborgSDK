@@ -31,7 +31,7 @@ class ScanningViewRenderer
     func draw(colorBuffer: CVPixelBuffer,
               depthBuffer: CVPixelBuffer?,
               pointCloud: SCPointCloud?,
-              depthCameraCalibrationData: AVCameraCalibrationData,
+              depthCameraCalibrationData: CameraCalibrationData,
               viewMatrix: matrix_float4x4,
               into metalLayer: CAMetalLayer,
               flipsInputHorizontally: Bool)

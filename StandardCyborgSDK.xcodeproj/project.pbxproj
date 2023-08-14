@@ -44,6 +44,14 @@
 		07F4A70924E496D70059D80E /* MeshUvMapTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A70824E496D70059D80E /* MeshUvMapTests.mm */; };
 		15E0F2A098DCDEE62B30EBD5 /* libPods-VisualTesteriOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69247DA574AC900403951CD1 /* libPods-VisualTesteriOS.a */; };
 		6B9816FD8F02211130330768 /* libPods-TrueDepthFusion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA81DA3DF046A3784855882C /* libPods-TrueDepthFusion.a */; };
+		72B8482C2A83AC860066849A /* CameraCalibrationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8482A2A83AC860066849A /* CameraCalibrationData.m */; };
+		72B8482D2A83AC860066849A /* CameraCalibrationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8482A2A83AC860066849A /* CameraCalibrationData.m */; };
+		72B848332A83AC9D0066849A /* CameraCalibrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B848322A83AC9D0066849A /* CameraCalibrationData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72B848342A83AC9D0066849A /* CameraCalibrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B848322A83AC9D0066849A /* CameraCalibrationData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72B848392A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B848382A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72B8483A2A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B848382A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72B8483D2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8483B2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m */; };
+		72B8483E2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8483B2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m */; };
 		7609B71321167D4200C0C8D2 /* PointCloudIO_OBJ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7609B71221167D4200C0C8D2 /* PointCloudIO_OBJ.cpp */; };
 		7609B7192117B4C600C0C8D2 /* ProcessedFrame.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7609B7182117B4C600C0C8D2 /* ProcessedFrame.hpp */; settings = {ATTRIBUTES = (Private, ); }; };
 		7609B71B21190F0500C0C8D2 /* EigenHelperTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7609B71A21190F0500C0C8D2 /* EigenHelperTests.mm */; };
@@ -633,6 +641,10 @@
 		69247DA574AC900403951CD1 /* libPods-VisualTesteriOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VisualTesteriOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA7DCB706A86532C3F884E6 /* libPods-StandardCyborgFusionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StandardCyborgFusionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		704A293A94B50C7C348B86F0 /* Pods-StandardCyborgFusionCLI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandardCyborgFusionCLI.release.xcconfig"; path = "Target Support Files/Pods-StandardCyborgFusionCLI/Pods-StandardCyborgFusionCLI.release.xcconfig"; sourceTree = "<group>"; };
+		72B8482A2A83AC860066849A /* CameraCalibrationData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraCalibrationData.m; sourceTree = "<group>"; };
+		72B848322A83AC9D0066849A /* CameraCalibrationData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraCalibrationData.h; sourceTree = "<group>"; };
+		72B848382A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AVCameraCalibrationData+CameraCalibrationData.h"; sourceTree = "<group>"; };
+		72B8483B2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AVCameraCalibrationData+CameraCalibrationData.m"; sourceTree = "<group>"; };
 		7609B71221167D4200C0C8D2 /* PointCloudIO_OBJ.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PointCloudIO_OBJ.cpp; sourceTree = "<group>"; };
 		7609B7182117B4C600C0C8D2 /* ProcessedFrame.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProcessedFrame.hpp; sourceTree = "<group>"; };
 		7609B71A21190F0500C0C8D2 /* EigenHelperTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EigenHelperTests.mm; sourceTree = "<group>"; };
@@ -1504,6 +1516,10 @@
 				7632DC0C23BA84B000B67A7E /* SCScene.mm */,
 				A5A5A86D21C45F57000978E9 /* CVPixelBufferHelpers.h */,
 				A5A5A86821C45F4A000978E9 /* CVPixelBufferHelpers.m */,
+				72B8482A2A83AC860066849A /* CameraCalibrationData.m */,
+				72B848322A83AC9D0066849A /* CameraCalibrationData.h */,
+				72B848382A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h */,
+				72B8483B2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1595,6 +1611,7 @@
 				A5A5A86621C45BA0000978E9 /* SCOfflineReconstructionManager.h in Headers */,
 				765917C8235C0A5900543E45 /* SCMesh+SceneKit.h in Headers */,
 				76539CCD20F5BD57009C332E /* ICP.hpp in Headers */,
+				72B848392A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h in Headers */,
 				A55BFF77230312F00052DA08 /* OutlierDetector.hpp in Headers */,
 				7632DC0D23BA84B000B67A7E /* SCScene.h in Headers */,
 				761FB7A1230759AC004E48F3 /* SceneKit+Mat3x3.h in Headers */,
@@ -1603,6 +1620,7 @@
 				761FB79E230759AC004E48F3 /* SceneKit+BoundingBox3.h in Headers */,
 				761FB7A4230759AC004E48F3 /* SceneKit+Polyline.h in Headers */,
 				7695420421068DF5004D6B24 /* EigenHelpers.hpp in Headers */,
+				72B848332A83AC9D0066849A /* CameraCalibrationData.h in Headers */,
 				A598B03922FE1A4C00C50F9F /* SCPointCloud+Geometry.h in Headers */,
 				76BBFD41229B3E650004F9EE /* SCLandmark2D.h in Headers */,
 				7636486920F7DB260046E9A7 /* PointCloudIO.hpp in Headers */,
@@ -1721,6 +1739,7 @@
 				E8EB322B24739C8C00EF7A01 /* InitializeDepthConfidenceKernel.h in Headers */,
 				E8EB322D24739C8C00EF7A01 /* ComputeNormalsKernel.h in Headers */,
 				E8EB322E24739C8C00EF7A01 /* SceneKit+Mat3x4.h in Headers */,
+				72B848342A83AC9D0066849A /* CameraCalibrationData.h in Headers */,
 				E8EB322F24739C8C00EF7A01 /* WriteUSDZCompatibleZip.hpp in Headers */,
 				E8EB323024739C8C00EF7A01 /* ComputePointsKernel.h in Headers */,
 				E8EB323224739C8C00EF7A01 /* SceneKit+Geometry.h in Headers */,
@@ -1729,6 +1748,7 @@
 				E8EB323524739C8C00EF7A01 /* SmoothDepthKernel.h in Headers */,
 				E8EB323624739C8C00EF7A01 /* SCMeshTexturing.h in Headers */,
 				E8EB323824739C8C00EF7A01 /* DebugLog.h in Headers */,
+				72B8483A2A83ADDF0066849A /* AVCameraCalibrationData+CameraCalibrationData.h in Headers */,
 				E8EB323A24739C8C00EF7A01 /* PBFFinalStatistics.h in Headers */,
 				E8EB323C24739C8C00EF7A01 /* crc32.hpp in Headers */,
 				E8EB323D24739C8C00EF7A01 /* ProcessedFrame.hpp in Headers */,
@@ -2337,6 +2357,7 @@
 				07EF7E7F231F17B50038C9A3 /* MetalTextureProjection.mm in Sources */,
 				7609B71321167D4200C0C8D2 /* PointCloudIO_OBJ.cpp in Sources */,
 				0702F9AF234FFF8F0027D10D /* SCMesh.mm in Sources */,
+				72B8483D2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m in Sources */,
 				A5A5CE912159ACCE00768FB3 /* MetalDepthProcessorData.mm in Sources */,
 				A5092C3021C1BC50003B20BC /* crc32.cpp in Sources */,
 				A5375B0621C86D18005B2BED /* SCPointCloud+Metal.m in Sources */,
@@ -2354,6 +2375,7 @@
 				7657496D2236E4CA0073B2E0 /* PointCloudIO_PLY.mm in Sources */,
 				7695420321068DF5004D6B24 /* EigenHelpers.cpp in Sources */,
 				A590E4C121B503D000DB36A0 /* WriteUSDZCompatibleZip.cpp in Sources */,
+				72B8482C2A83AC860066849A /* CameraCalibrationData.m in Sources */,
 				761FB7982307599C004E48F3 /* SceneKit+Geometry.mm in Sources */,
 				A5375B0221C86783005B2BED /* SCPointCloud+SceneKit.mm in Sources */,
 				768967F92395DC3B007179B2 /* SCEarTracking.m in Sources */,
@@ -2511,6 +2533,7 @@
 				E8EB328424739C8C00EF7A01 /* PointCloudIO_OBJ.cpp in Sources */,
 				E8EB328524739C8C00EF7A01 /* SCMesh.mm in Sources */,
 				E8EB328724739C8C00EF7A01 /* MetalDepthProcessorData.mm in Sources */,
+				72B8483E2A83AE250066849A /* AVCameraCalibrationData+CameraCalibrationData.m in Sources */,
 				E8EB328824739C8C00EF7A01 /* crc32.cpp in Sources */,
 				E8EB328924739C8C00EF7A01 /* SCPointCloud+Metal.m in Sources */,
 				E8EB328A24739C8C00EF7A01 /* SceneKit+Mat3x4.mm in Sources */,
@@ -2528,6 +2551,7 @@
 				E8EB329A24739C8C00EF7A01 /* EigenHelpers.cpp in Sources */,
 				E8EB329C24739C8C00EF7A01 /* WriteUSDZCompatibleZip.cpp in Sources */,
 				E8EB329D24739C8C00EF7A01 /* SceneKit+Geometry.mm in Sources */,
+				72B8482D2A83AC860066849A /* CameraCalibrationData.m in Sources */,
 				E8EB329F24739C8C00EF7A01 /* SCPointCloud+SceneKit.mm in Sources */,
 				E8EB32A024739C8C00EF7A01 /* SCEarTracking.m in Sources */,
 				E8EB32A224739C8C00EF7A01 /* MathHelpers.m in Sources */,

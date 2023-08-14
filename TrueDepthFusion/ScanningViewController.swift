@@ -90,17 +90,17 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
         metalContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(focusOnTap)))
         
         _cameraManager.delegate = self
-        _cameraManager.configureCaptureSession(maxColorResolution: 1920, maxDepthResolution: _useFullResolutionDepthFrames ? 640 : 320, maxFramerate: 30)
+        _cameraManager.configureCaptureSession(maxColorResolution: 1920, maxDepthResolution: 1920, maxFramerate: 15)
         _reconstructionManager.delegate = self
         _reconstructionManager.includesColorBuffersInMetadata = true
-        _reconstructionManager.setMaxDepth(0.5)
+        _reconstructionManager.setMaxDepth(1.0)
         _reconstructionManager.setMinCount(25)
         _reconstructionManager.setSurfelLifetime(15)
-        _reconstructionManager.setSurfelDiscard(true)
+        _reconstructionManager.setSurfelDiscard(false)
         _reconstructionManager.setSurfelLifetime(10)
         _reconstructionManager.setSurfelDiscardAngle(.pi * (45.0 / 180.0))
 
-        _reconstructionManager.normalizedFrameClipRegion = CGRect(x: 0.6, y: 0.0, width: 0.4, height: 1.0)
+        _reconstructionManager.normalizedFrameClipRegion = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
 
         _algorithmCommandQueue.label = "ScanningViewController._algorithmCommandQueue"
         _visualizationCommandQueue.label = "ScanningViewController._visualizationCommandQueue"
@@ -219,30 +219,38 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
                          depthTime: CMTime,
                          depthCalibrationData: AVCameraCalibrationData)
     {
+        
+        let depthFormat = CVPixelBufferGetPixelFormatType(depthBuffer)
+        let depthWidth = CVPixelBufferGetWidth(depthBuffer)
+        let depthHeight = CVPixelBufferGetHeight(depthBuffer)
+        let depthData = Data.from(pixelBuffer: depthBuffer)
+        let reconstructedDepthBuffer = CVPixelBuffer.from(depthData, width: depthWidth, height: depthHeight, pixelFormat: depthFormat)
+        
+        
+        
         let pointCloud: SCPointCloud
         
         if _scanning {
             pointCloud = _reconstructionManager.buildPointCloud()
         } else {
-            pointCloud = _reconstructionManager.reconstructSingleDepthBuffer(depthBuffer,
+            pointCloud = _reconstructionManager.reconstructSingleDepthBuffer(reconstructedDepthBuffer,
                                                                              colorBuffer: colorBuffer,
-                                                                             with: depthCalibrationData,
+                                                                             with: depthCalibrationData.proxy(),
                                                                              smoothingPoints: !self._useFullResolutionDepthFrames)
         }
         
         _scanningViewRenderer.draw(colorBuffer: colorBuffer,
-                                   depthBuffer: depthBuffer,
+                                   depthBuffer: reconstructedDepthBuffer,
                                    pointCloud: pointCloud,
-                                   depthCameraCalibrationData: depthCalibrationData,
+                                   depthCameraCalibrationData: depthCalibrationData.proxy(),
                                    viewMatrix: _scanning ? _latestViewMatrix : matrix_identity_float4x4,
                                    into: _metalLayer,
                                    flipsInputHorizontally: _reconstructionManager.flipsInputHorizontally)
         
         if _scanning {
-            _reconstructionManager.accumulate(depthBuffer: depthBuffer,
+            _reconstructionManager.accumulate(depthBuffer: reconstructedDepthBuffer,
                                               colorBuffer: colorBuffer,
-                                              calibrationData: depthCalibrationData)
-
+                                              calibrationData: depthCalibrationData.proxy())
         }
     }
     
@@ -252,6 +260,42 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
                                didProcessWith metadata: SCAssimilatedFrameMetadata,
                                statistics: SCReconstructionManagerStatistics)
     {
+//        static const NSInteger kMaxConsecutiveFailedFrameCount = 8;
+
+//        print("succeededCount : \(statistics.succeededCount) - lostTrackingCount : \(statistics.lostTrackingCount) - consecutiveLostTrackingCount : \(statistics.consecutiveLostTrackingCount) - droppedFrameCount : \(statistics.droppedFrameCount)")
+        
+        var eulerY = atan2(metadata.viewMatrix[2][0], metadata.viewMatrix[2][2]).radPositive()
+
+        if eulerY.isNaN {
+            eulerY = 0.0
+        }
+                
+        if eulerY > .pi {
+            eulerY -= 2.0 * .pi
+        }
+                
+        var eulerX = atan2(metadata.viewMatrix[2][1], metadata.viewMatrix[2][2]).radPositive()
+
+        if eulerX.isNaN {
+            eulerX = 0.0
+        }
+        
+        if eulerX > .pi {
+            eulerX -= 2.0 * .pi
+        }
+        
+        var eulerZ = atan2(metadata.viewMatrix[1][0], metadata.viewMatrix[1][1]).radPositive()
+
+        if eulerZ.isNaN {
+            eulerZ = 0.0
+        }
+        
+        if eulerZ > .pi {
+            eulerZ -= 2.0 * .pi
+        }
+        
+        print("\(eulerX) \(eulerY) \(eulerZ)")
+        
         _latestViewMatrix = metadata.viewMatrix
         
         if metadata.result == .succeeded || metadata.result == .poorTracking {
@@ -491,3 +535,21 @@ class ScanningViewController: UIViewController, CameraManagerDelegate, SCReconst
 private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
+
+extension Float {
+    func radToDeg() -> Int {
+        return Int(self * 180.0 / Float.pi)
+    }
+    
+    func radPositive() -> Float {
+        if self >= 0.0 {
+            return self
+        } else {
+            return 2.0 * .pi + self
+        }
+    }
+}
+
+//extension AVCameraCalibrationData: CameraCalibrationData {
+//    
+//}

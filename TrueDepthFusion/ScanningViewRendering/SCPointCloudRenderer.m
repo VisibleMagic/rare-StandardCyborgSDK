@@ -88,7 +88,7 @@ typedef struct {
 
 - (void)encodeCommandsOntoBuffer:(id<MTLCommandBuffer>)commandBuffer
                       pointCloud:(SCPointCloud *)pointCloud
-      depthCameraCalibrationData:(AVCameraCalibrationData *)depthCameraCalibrationData
+      depthCameraCalibrationData:(CameraCalibrationData *)depthCameraCalibrationData
                       viewMatrix:(matrix_float4x4)viewMatrix
                    outputTexture:(id<MTLTexture>)outputTexture
                   depthFrameSize:(CGSize)depthFrameSize

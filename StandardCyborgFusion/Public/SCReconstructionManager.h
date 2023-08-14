@@ -13,8 +13,9 @@
 
 #import <StandardCyborgFusion/SCAssimilatedFrameMetadata.h>
 #import <StandardCyborgFusion/SCReconstructionManagerParameters.h>
+#import <AVFoundation/AVFoundation.h>
 
-@class AVCameraCalibrationData;
+@class CameraCalibrationData;
 @class CMDeviceMotion;
 @protocol MTLCommandQueue;
 @protocol MTLDevice;
@@ -67,7 +68,7 @@ typedef struct __attribute__((packed, aligned(16))) {
 @property (nonatomic) CGRect normalizedFrameClipRegion;
 
 /** The camera calibration data used by the most recently passed depth frame. */
-@property (nonatomic, readonly) AVCameraCalibrationData *latestCameraCalibrationData;
+@property (nonatomic, readonly) CameraCalibrationData *latestCameraCalibrationData;
 @property (nonatomic, readonly) NSInteger latestCameraCalibrationFrameWidth;
 @property (nonatomic, readonly) NSInteger latestCameraCalibrationFrameHeight;
 
@@ -80,14 +81,14 @@ typedef struct __attribute__((packed, aligned(16))) {
  such as for live pre-scan visualization */
 - (SCPointCloud *)reconstructSingleDepthBuffer:(CVPixelBufferRef)depthBuffer
                                    colorBuffer:(_Nullable CVPixelBufferRef)colorBuffer
-                           withCalibrationData:(AVCameraCalibrationData *)calibrationData
+                           withCalibrationData:(CameraCalibrationData *)calibrationData
                                smoothingPoints:(BOOL)smoothPoints;
 
 /** Pass in synchronized color and depth buffers as fast as they are made available by the system.
  Automatically drops frames if more are accumulated than can be processed in real time. */
 - (void)accumulateDepthBuffer:(CVPixelBufferRef)depthBuffer
                   colorBuffer:(CVPixelBufferRef)colorBuffer
-              calibrationData:(AVCameraCalibrationData *)calibrationData
+              calibrationData:(CameraCalibrationData *)calibrationData
 NS_SWIFT_NAME(accumulate(depthBuffer:colorBuffer:calibrationData:));
 
 /** Pass in device motion updates as fast as they are made available by the system */

@@ -11,7 +11,7 @@
 
 #import <StandardCyborgFusion/SCMesh.h>
 
-@class AVCameraCalibrationData;
+@class CameraCalibrationData;
 @class SCPointCloud;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, SCMeshTexturingAPIError) {
   Camera Calibration data that must be specified before running -reconstructMeshWithWithPointCloud:.
   This can be obtained from SCReconstructionManager.
  */
-@property (nonatomic) AVCameraCalibrationData *cameraCalibrationData;
+@property (nonatomic) CameraCalibrationData *cameraCalibrationData;
 @property (nonatomic) NSInteger cameraCalibrationFrameWidth;
 @property (nonatomic) NSInteger cameraCalibrationFrameHeight;
 

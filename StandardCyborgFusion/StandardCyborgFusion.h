@@ -34,3 +34,5 @@ FOUNDATION_EXPORT const unsigned char StandardCyborgFusionVersionString[];
 #import <StandardCyborgFusion/SCReconstructionManager.h>
 #import <StandardCyborgFusion/SCReconstructionManagerParameters.h>
 #import <StandardCyborgFusion/SCScene.h>
+#import <StandardCyborgFusion/CameraCalibrationData.h>
+#import <StandardCyborgFusion/AVCameraCalibrationData+CameraCalibrationData.h>

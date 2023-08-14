@@ -19,7 +19,7 @@
 
 using namespace standard_cyborg;
 
-sc3d::PerspectiveCamera PerspectiveCameraFromAVCameraCalibrationData(AVCameraCalibrationData *calibrationData, size_t pixelsWide, size_t pixelsHigh)
+sc3d::PerspectiveCamera PerspectiveCameraFromAVCameraCalibrationData(CameraCalibrationData *calibrationData, size_t pixelsWide, size_t pixelsHigh)
 {
     NSData *lensDistortionLookupTableData = calibrationData.lensDistortionLookupTable;
     NSData *inverseLensDistortionLookupTableData = calibrationData.inverseLensDistortionLookupTable;

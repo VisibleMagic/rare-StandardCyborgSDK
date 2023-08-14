@@ -7,7 +7,6 @@
 //
 
 #import <standard_cyborg/sc3d/PerspectiveCamera.hpp>
+#import "CameraCalibrationData.h"
 
-@class AVCameraCalibrationData;
-
-extern standard_cyborg::sc3d::PerspectiveCamera PerspectiveCameraFromAVCameraCalibrationData(AVCameraCalibrationData *calibrationData, size_t pixelsWide, size_t pixelsHigh);
+extern standard_cyborg::sc3d::PerspectiveCamera PerspectiveCameraFromAVCameraCalibrationData(CameraCalibrationData *calibrationData, size_t pixelsWide, size_t pixelsHigh);
